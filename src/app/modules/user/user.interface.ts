@@ -14,7 +14,8 @@ export type TUser = {
   email: string;
   password: string;
   phone: number;
-  role: "admin" | "user";,
+  role: "admin" | "user";
+  passwordChangedAt?:Date;
   isDeleted:Boolean,
   address: string;
 };
@@ -22,6 +23,7 @@ export type TUser = {
 
 export interface UserModel extends Model<TUser>{
   isUserExistWithCustomId(id:string):Promise<TUser>,
-  isPasswordMatched(plainPassword:string,hashedPassword:string):Promise<boolean>
+  isPasswordMatched(plainPassword:string,hashedPassword:string):Promise<boolean>,
+  isJwtIssuedBefofunctionrePasswordChanged(passwordChangeTime:Date,jwtIssuedTime:number):Promise<boolean>
 }
 

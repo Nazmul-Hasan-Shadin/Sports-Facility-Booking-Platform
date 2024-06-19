@@ -31,6 +31,9 @@ export const userSchema = new Schema<TUser, UserModel>(
     isDeleted: {
       type: Boolean,
     },
+    passwordChangedAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
@@ -50,12 +53,23 @@ userSchema.post("save", async function (doc, next) {
 
 // check is passwrd is correct or not
 
- userSchema.statics.isPasswordMatched=async function(plainPassword,hashedPassword){
-    return await bcrypt.compare(plainPassword,hashedPassword)
- }
+userSchema.statics.isPasswordMatched = async function (
+  plainPassword,
+  hashedPassword
+) {
+  return await bcrypt.compare(plainPassword, hashedPassword);
+};
 
 userSchema.statics.isUserExistWithCustomId = async function (email: string) {
   return await User.findOne({ email }).select("+password");
 };
 
+userSchema.statics.isJwtIssuedBefofunctionrePasswordChanged = async function (
+  passwordChangeTime: Date,
+  jwtIssuedTime: number
+) {
+  const passwordChangedTime = new Date(passwordChangeTime).getTime() / 1000;
+
+  return passwordChangedTime > jwtIssuedTime;
+};
 export const User = model<TUser, UserModel>("User", userSchema);

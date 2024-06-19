@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { TBooking } from "./booking.interface";
 import { BookedStatus } from "./booking.const";
 
@@ -32,3 +32,5 @@ const bookingSchema= new Schema<TBooking>({
      
 
 })
+
+export const Booking= model<TBooking>('Booking',bookingSchema)

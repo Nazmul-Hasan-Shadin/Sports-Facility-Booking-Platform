@@ -1,3 +1,4 @@
+import { Model } from "mongoose";
 
  
  export interface TUserName{
@@ -13,8 +14,14 @@ export type TUser = {
   email: string;
   password: string;
   phone: number;
-  role: "admin" | "user";
+  role: "admin" | "user";,
+  isDeleted:Boolean,
   address: string;
 };
 
+
+export interface UserModel extends Model<TUser>{
+  isUserExistWithCustomId(id:string):Promise<TUser>,
+  isPasswordMatched(plainPassword:string,hashedPassword:string):Promise<boolean>
+}
 

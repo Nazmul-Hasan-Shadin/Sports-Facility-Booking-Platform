@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import { AppError } from "../../errors/AppError";
 import { Facility } from "../facility/facility.models";
 import { User } from "../user/user.model";
@@ -21,7 +22,7 @@ const findBookingAvailablityIntoDB = async (date: Date) => {
   return availableSlots;
 };
 
-const createBookingIntoDB = async (payload:TBooking) => {
+const createBookingIntoDB = async (email:string,payload:TBooking) => {
   console.log(payload.startTime);
 
   if (!(await Facility.isFacilityExist(payload.facility))) {
@@ -33,7 +34,18 @@ const createBookingIntoDB = async (payload:TBooking) => {
 if (!payload.endTime) {
     throw new Error("EndTime is required");
 }
+//  find user by email  then retrieve userId for referencing
+ const findUserId= await User.findOne({email})
+  if (!findUserId) {
+     throw new AppError(404,'user doesnot exist .please login again .this issue arise you are trying other set other user id . Dont nee provide userID its autometic ')
+  }
 
+  console.log(findUserId,'iam finded user id');
+  
+ 
+  const extractUserId= findUserId._id as Types.ObjectId
+   console.log(extractUserId,'ho');
+   
   // const startTimeParts = payload?.startTime?.split(":");
   // const startHour = parseInt(startTimeParts[0]);
   // const startMin = parseInt(startTimeParts[1]);
@@ -64,8 +76,9 @@ if (!payload.endTime) {
     payload.startTime,
     payload.endTime
   );
+  payload.user=extractUserId 
   payload.payableAmount = PayableAmoute;
-
+  
   payload.isBooked = "confirmed";
   const result = await Booking.create(payload);
   return result;

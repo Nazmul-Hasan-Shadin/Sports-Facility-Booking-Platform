@@ -23,7 +23,7 @@ const checkAvailability = catchAsync(async (req, res) => {
 });
 
 const createBooking = catchAsync(async (req, res) => {
-  const result = await BookingServices.createBookingIntoDB(req.body);
+  const result = await BookingServices.createBookingIntoDB(req?.user?.email,req.body);
 
   sendResoponse(res, {
     success: true,

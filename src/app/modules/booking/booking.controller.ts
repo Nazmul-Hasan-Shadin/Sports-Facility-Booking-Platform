@@ -1,3 +1,4 @@
+import { AppError } from "../../errors/AppError";
 import catchAsync from "../../utils/catchAsync";
 import sendResoponse from "../../utils/sendResponse";
 import { Booking } from "./booking.model";
@@ -34,9 +35,18 @@ const createBooking = catchAsync(async (req, res) => {
 });
 
 
-const getAllBookings=  catchAsync(async (req, res) => {
+  const getAllBookings=  catchAsync(async (req, res) => {
     const result = await BookingServices.getAllBookingsFromDB();
-  
+      if (result.length===0) {
+       return sendResoponse(res, {
+          success: false,
+      
+          statusCode: 404,
+          message: "No Data Found",
+      
+          data: result,
+        });
+      }
     sendResoponse(res, {
       success: true,
   
@@ -55,6 +65,16 @@ const getAllBookings=  catchAsync(async (req, res) => {
      
     const result = await BookingServices.getAllBookingsForUserSpecificFromDB(email);
      
+     if(result.length==-0){
+      return  sendResoponse(res, {
+        success:false,
+    
+        statusCode:404,
+        message: "No Bookings Data found ",
+    
+       
+      });
+     }
     sendResoponse(res, {
       success: true,
   
@@ -69,16 +89,6 @@ const getAllBookings=  catchAsync(async (req, res) => {
     const bookingId=req.params.bookingId;
     const result= await BookingServices.cancelABookingByUserIntoDB(bookingId);
 
-     if (!result) {
-        sendResoponse(res, {
-            success: true,
-        
-            statusCode: 200,
-            message: "No Data Found",
-        
-            data: result,
-          });
-     }
     sendResoponse(res, {
         success: true,
     

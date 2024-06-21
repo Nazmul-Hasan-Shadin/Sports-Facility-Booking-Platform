@@ -5,7 +5,7 @@ const sendResoponse=<T>(res:Response,data:{
     success:boolean,
     message?:string,
     token?:string,
-    data:T
+    data?:T
 })=>{
     res.status(data?.statusCode).json({
 

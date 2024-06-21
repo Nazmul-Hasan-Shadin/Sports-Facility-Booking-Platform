@@ -71,7 +71,10 @@ if (!payload.endTime) {
 
  
 const getAllBookingsFromDB=async()=>{
-    const result= await Booking.find().populate('facility').populate('user')
+    const result= await Booking.find().populate({path:'facility', select:'-__v'}).populate({
+      path:'user',
+      select:'-password -createdAt -updatedAt -__v'
+    })
     return result
 }
 
@@ -105,7 +108,7 @@ const cancelABookingByUserIntoDB= async (id:string)=>{
         isBooked:'canceled'
     },{
         new:true
-    })
+    }).populate('facility')
 
     return result
 }

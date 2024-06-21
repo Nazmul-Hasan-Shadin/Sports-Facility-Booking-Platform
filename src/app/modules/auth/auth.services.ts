@@ -8,15 +8,20 @@ import bcrypt from "bcrypt";
 
 const signUpInToDb = async (payload: TUser) => {
   payload.role = "user";
-  const result = await User.create(payload);
+  const createUser = await User.create(payload)
+  const result= await User.findById(createUser._id).select('-createdAt -updatedAt -__v -password');
   return result;
 };
 
 const loginIntoDB = async (payload: TLogin) => {
-  const user = await User.isUserExistWithCustomId(payload.email);
-  if (!user) {
+  const userDoc = await User.isUserExistWithCustomId(payload.email)
+  if (!userDoc) {
     throw new AppError(404, "this user is not found");
   }
+
+  const user = await User.findById((userDoc as TUser)._id).select('-createdAt -updatedAt -__v -password');
+  console.log('iam user',user);
+  
 
   const isDeleted = user?.isDeleted;
   if (isDeleted) {
@@ -25,13 +30,13 @@ const loginIntoDB = async (payload: TLogin) => {
 
   // comapre passssword now
 
-  if (!(await User.isPasswordMatched(payload.password, user.password))) {
+  if (!(await User.isPasswordMatched(payload.password, userDoc.password))) {
     throw new AppError(400, "password donto matched");
   }
 
   const jwtPayload = {
-    email: user.email,
-    role: user.role,
+    email: user?.email,
+    role: user?.role,
   };
 
   const accessToken = jwt.sign(jwtPayload, config.access_token as string, {

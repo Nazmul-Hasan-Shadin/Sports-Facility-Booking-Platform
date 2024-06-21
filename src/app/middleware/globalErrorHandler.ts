@@ -7,7 +7,7 @@ import { handleDuplicateError } from "../errors/handleDuplicateError";
 import { AppError } from "../errors/AppError";
 
 export const globalErrorHandler = async (
-  err,
+  err:any,
   req: Request,
   res: Response,
   next: NextFunction
@@ -49,6 +49,6 @@ export const globalErrorHandler = async (
     success: false,
     message,
     errorMessage,
-    err,
+    stack:err.stack
   });
 };

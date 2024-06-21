@@ -5,7 +5,7 @@ import { AuthServices } from "./auth.services";
 import { User } from "../user/user.model";
 
 const signUpUser = catchAsync(async (req, res) => {
-  const result = await AuthServices.signUpInToDb(req.body);
+  const result = await AuthServices.signUpInToDb(req.body)
 
   sendResoponse(res, {
     success: true,

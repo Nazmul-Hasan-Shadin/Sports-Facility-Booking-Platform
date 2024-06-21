@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Document, Model } from "mongoose";
 
  
  export interface TUserName{
@@ -9,7 +9,7 @@ import { Model } from "mongoose";
  }
 
 
-export type TUser = {
+export interface TUser extends  Document {
   name: TUserName;
   email: string;
   password: string;

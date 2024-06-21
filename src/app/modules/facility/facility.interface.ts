@@ -1,4 +1,4 @@
-import { Model } from "mongoose"
+import { Model, Types } from "mongoose"
 import { TUser } from "../user/user.interface"
 
 
@@ -12,5 +12,5 @@ export type TFacility ={
 
 
 export interface facilityData  extends Model<TFacility>{
-    isFacilityExist(id):Promise<TUser | null>
+    isFacilityExist(id:Types.ObjectId):Promise<TUser | null>
 }

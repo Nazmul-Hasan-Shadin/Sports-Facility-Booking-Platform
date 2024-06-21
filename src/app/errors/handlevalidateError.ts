@@ -14,7 +14,7 @@ export const handleValidateError = (err: mongoose.Error.ValidationError): TGener
 
 
   const statusCode = 400;
-  const message =errorSource?.message || 'Validation Error';
+  const message =err.message || 'Validation Error';
 
   return {
     statusCode,

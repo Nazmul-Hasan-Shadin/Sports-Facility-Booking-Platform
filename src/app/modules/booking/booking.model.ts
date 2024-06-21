@@ -3,6 +3,10 @@ import { TBooking } from "./booking.interface";
 import { BookedStatus } from "./booking.const";
 
 const bookingSchema= new Schema<TBooking>({
+   facility:{
+      type:Schema.Types.ObjectId,
+      ref:'Facility'
+   },
      date:{
         type:Date,
         required:[true,'Date is required']
@@ -19,15 +23,13 @@ const bookingSchema= new Schema<TBooking>({
         type:Schema.Types.ObjectId,
         ref:'User'
      },
-     facility:{
-        type:Schema.Types.ObjectId,
-        ref:'Facility'
-     },
+
      payableAmount:{
         type:Number
      },
      isBooked:{
-        enum:BookedStatus
+         type:String,
+         enum:BookedStatus
      }
      
 

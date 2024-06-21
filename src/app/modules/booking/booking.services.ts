@@ -1,5 +1,6 @@
 import { AppError } from "../../errors/AppError";
 import { Facility } from "../facility/facility.models";
+import { User } from "../user/user.model";
 import { TBooking } from "./booking.interface";
 import { Booking } from "./booking.model";
 import {
@@ -68,10 +69,48 @@ const getAllBookingsFromDB=async()=>{
     return result
 }
 
+const getAllBookingsForUserSpecificFromDB=async(email:string)=>{
+    // find user then collect user id from user colloection 
+    const findExistUserByEmail= await User.findOne({email:email})
+    console.log('iam user existing',findExistUserByEmail);
+    
+
+    if (!findExistUserByEmail) {
+        throw new Error("User not found");
+    }
+
+    
+    //  search all bookings by user id
+
+    const result= await Booking.find({user:findExistUserByEmail._id}).populate('facility')
+  
+    
+
+
+     
+
+
+    return result
+}
+
+
+const cancelABookingByUserIntoDB= async (id:string)=>{
+    const result= await Booking.findByIdAndUpdate(id,{
+        isBooked:'canceled'
+    },{
+        new:true
+    })
+
+    return result
+}
+
+
 
 
 export const BookingServices = {
   findBookingAvailablityIntoDB,
   createBookingIntoDB,
-  getAllBookingsFromDB
+  getAllBookingsFromDB,
+  getAllBookingsForUserSpecificFromDB,
+  cancelABookingByUserIntoDB
 };

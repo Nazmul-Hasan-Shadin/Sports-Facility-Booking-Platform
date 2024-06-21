@@ -40,7 +40,7 @@ const auth=(...requiredRoles:string[])=>{
 
       
      if (requiredRoles && !requiredRoles.includes(role)) {
-        throw new AppError(403,'You are not authorized')
+        throw new AppError(401,'You have no acces to this route')
      }
 
      req.user=decode 

@@ -9,6 +9,9 @@ import {
 } from "./booking.utils";
 
 const findBookingAvailablityIntoDB = async (date: Date) => {
+   console.log('iam date inside services ', date);  //here i find this format date 2024-06-21T13:35:13.769Z
+
+   
   const hasexisteBookingAlready = await Booking.find({ date });
 
   console.log(hasexisteBookingAlready, "hasexisteBookingAlready");
@@ -31,31 +34,31 @@ if (!payload.endTime) {
     throw new Error("EndTime is required");
 }
 
-  const startTimeParts = payload?.startTime?.split(":");
-  const startHour = parseInt(startTimeParts[0]);
-  const startMin = parseInt(startTimeParts[1]);
+  // const startTimeParts = payload?.startTime?.split(":");
+  // const startHour = parseInt(startTimeParts[0]);
+  // const startMin = parseInt(startTimeParts[1]);
 
-  const newDate = new Date(`2002-11-26`);
-  newDate.setHours(startHour, startMin, 0, 0); //here 00 from time format 10:34:00
+  // const newDate = new Date(`2002-11-26`);
+  // newDate.setHours(startHour, startMin, 0, 0); //here 00 from time format 10:34:00
 
-  payload.startTime = newDate.toISOString();
+  // payload.startTime = newDate.toISOString();
 
-  if (isNaN(newDate.getTime())) {
-    throw new AppError(400, "Invalid Time format");
-  }
+  // if (isNaN(newDate.getTime())) {
+  //   throw new AppError(400, "Invalid Time format");
+  // }
 
-  const endTimeParts = payload?.endTime?.split(":");
-  const endHour = parseInt(endTimeParts[0]);
-  const endMinute = parseInt(endTimeParts[1]);
+  // const endTimeParts = payload?.endTime?.split(":");
+  // const endHour = parseInt(endTimeParts[0]);
+  // const endMinute = parseInt(endTimeParts[1]);
 
-  const endDateTime = new Date(`2002-11-26`);
-  endDateTime.setHours(endHour, endMinute, 0, 0);
+  // const endDateTime = new Date(`2002-11-26`);
+  // endDateTime.setHours(endHour, endMinute, 0, 0);
 
-  if (isNaN(endDateTime.getTime())) {
-    throw new AppError(400, "Invalid Time format");
-  }
+  // if (isNaN(endDateTime.getTime())) {
+  //   throw new AppError(400, "Invalid Time format");
+  // }
 
-  payload.endTime = endDateTime.toISOString();
+  // payload.endTime = endDateTime.toISOString();
 
   const PayableAmoute = calculatePayableAmount(
     payload.startTime,

@@ -6,9 +6,10 @@ import { Booking } from "./booking.model";
 import { BookingServices } from "./booking.services";
 
 const checkAvailability = catchAsync(async (req, res) => {
-  const date = req.query.date ? new Date(req.query.date as string) : new Date();
-  console.log(date);
+  const date = req.query.date?new Date(req.query.date as string): new Date(new Date().toISOString().split('T')[0])
 
+  
+  
   const result = await BookingServices.findBookingAvailablityIntoDB(date);
 
   sendResoponse(res, {

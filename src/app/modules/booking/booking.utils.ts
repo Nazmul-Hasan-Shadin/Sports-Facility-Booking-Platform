@@ -3,8 +3,8 @@ import { TBooking, TTimeSlot } from "./booking.interface"
 
 
 export const generateTimeSlotForaDay=(startTime:string,endTime:string,slotDuration:number)=>{
-    console.log('hi iam start time',startTime);
-    console.log('iam endtime',endTime);
+ 
+    
     
      const slots:TTimeSlot[]=[];
      let current= new Date(`2002-11-26T${startTime}`) //its time Sat Jan 01 2000 20:09:00 GMT+0600 (Bangladesh Standard Time)
@@ -44,10 +44,15 @@ export const generateTimeSlotForaDay=(startTime:string,endTime:string,slotDurati
     
     const availableSlots= totalSlots.filter(slot=>{
         return !bookings.some(booking=>{
+            console.log(booking);
+            
             const bookingStart= new Date(`2002-11-26T${booking.startTime}`)
+            console.log('bookingStart',bookingStart);
+            
             const bookingEnd= new Date(`2002-11-26T${booking.endTime}`)
 
             const slotStart= new Date(`2002-11-26T${slot.startTime}`)
+            console.log('slotStart',slotStart);
             const slotEnd= new Date(`2002-11-26T${slot.endTime}`)
 
             return (bookingStart <slotEnd && bookingEnd > slotStart)
@@ -58,13 +63,20 @@ export const generateTimeSlotForaDay=(startTime:string,endTime:string,slotDurati
  }
 
 
- export  const calculatePayableAmount = (startTime: string, endTime: string): number => {
-    const start = new Date(startTime);
-    const end = new Date(endTime);
-    const durationInMinutes = (end.getTime() - start.getTime()) / (1000 * 60); 
-
-    const ratePerMinute = 20; 
-    const totalPayableAmount = durationInMinutes * ratePerMinute;
-
-    return totalPayableAmount;
-};
+ export const calculatePayableAmount = (startTime: string, endTime: string): number => {
+    // Parse start and end times
+    const start = new Date(`2002-11-26T${startTime}`);
+    const end = new Date(`2002-11-26T${endTime}`);
+  
+    // Calculate duration in minutes
+    const durationInMinutes = (end.getTime() - start.getTime()) / (1000 * 60);
+  
+    // Hourly rate
+    const ratePerHour = 20; 
+  
+    // Calculate payable amount
+    const totalPayableAmount = (durationInMinutes / 60) * ratePerHour;
+  
+    // Round to two decimal places (optional, depending on your needs)
+    return Math.round(totalPayableAmount * 100) / 100;
+  };

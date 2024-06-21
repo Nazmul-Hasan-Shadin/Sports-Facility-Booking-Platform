@@ -26,7 +26,7 @@ const createFacility= catchAsync(async(req,res)=>{
     success: true,
     
     statusCode: 200,
-    message: "Facility is created succesfully",
+    message: "Facility added succesfully",
     data: result,
   });
 })

@@ -16,11 +16,11 @@ const bookingSchema= new Schema<TBooking>({
         required:[true,'End time is required']
      },
      user:{
-        type:Schema.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:'User'
      },
      facility:{
-        type:Schema.ObjectId,
+        type:Schema.Types.ObjectId,
         ref:'Facility'
      },
      payableAmount:{

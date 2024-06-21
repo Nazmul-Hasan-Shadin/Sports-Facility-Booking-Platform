@@ -1,7 +1,7 @@
-import { TFacility } from './facility.interface';
+import { TFacility, facilityData } from './facility.interface';
 import mongoose, { model } from "mongoose";
 
-const facilitySchema= new mongoose.Schema<TFacility>({
+const facilitySchema= new mongoose.Schema<TFacility,facilityData>({
    name:{
     type:String,
     require:[true,'Title is required']
@@ -24,4 +24,12 @@ const facilitySchema= new mongoose.Schema<TFacility>({
     
    }
 })
-export const Facility= model<TFacility>('Facility',facilitySchema)
+
+
+facilitySchema.statics.isFacilityExist= async function(id){
+      console.log(id);
+      
+    return await Facility.findById({_id:id})
+}
+
+export const Facility= model<TFacility,facilityData>('Facility',facilitySchema)

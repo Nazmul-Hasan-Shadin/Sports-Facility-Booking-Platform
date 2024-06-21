@@ -1,3 +1,5 @@
+import { Model } from "mongoose"
+import { TUser } from "../user/user.interface"
 
 
 export type TFacility ={
@@ -8,3 +10,7 @@ export type TFacility ={
     isDeleted:boolean
 }
 
+
+export interface facilityData  extends Model<TFacility>{
+    isFacilityExist(id):Promise<TUser | null>
+}

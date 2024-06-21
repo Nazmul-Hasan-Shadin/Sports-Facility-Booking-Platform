@@ -8,8 +8,13 @@ export type TBooking ={
      startTime:string,
      endTime:string,
      user:Types.ObjectId,
-     facility: Types.ObjectId,
+     facility:Types.ObjectId,
      payableAmount:Number,
      isBooked: isBooked
 
 }
+
+export type TTimeSlot ={
+    startTime:string,
+    endTime:string
+} 

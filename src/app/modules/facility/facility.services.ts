@@ -20,11 +20,20 @@ const deleteFacilityIntoDB=async(id:string)=>{
     return result
 }
 
+const getAllFacilityFromDB=async()=>{
+    const result= await Facility.find()
+    return result
+}
+
+
+
+
 
 
 
 export const FacilityServices={
     createFacilityIntoDb,
     updateFacilityIntoDB,
-    deleteFacilityIntoDB
+    deleteFacilityIntoDB,
+    getAllFacilityFromDB
 }

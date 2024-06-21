@@ -2,6 +2,22 @@ import catchAsync from "../../utils/catchAsync";
 import sendResoponse from "../../utils/sendResponse";
 import { FacilityServices } from "./facility.services";
 
+
+
+const getFacility= catchAsync(async(req,res)=>{
+  const result=await FacilityServices.getAllFacilityFromDB()
+
+   
+  sendResoponse(res, {
+    success: true,
+    
+    statusCode: 200,
+    message: "Facility are retrived succesfully",
+    data: result,
+  });
+})
+
+
 const createFacility= catchAsync(async(req,res)=>{
   const result=await FacilityServices.createFacilityIntoDb(req.body)
 
@@ -45,8 +61,15 @@ const deleteFacility= catchAsync(async(req,res)=>{
  });
 })
 
+
+
+
+
+
+
 export const FacilityController={
     createFacility,
     updateFacility,
-    deleteFacility
+    deleteFacility,
+    getFacility
 }

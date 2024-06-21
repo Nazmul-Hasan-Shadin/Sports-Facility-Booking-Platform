@@ -18,14 +18,20 @@ const findBookingAvailablityIntoDB = async (date: Date) => {
   return availableSlots;
 };
 
-const createBookingIntoDB = async (payload: TBooking) => {
+const createBookingIntoDB = async (payload:TBooking) => {
   console.log(payload.startTime);
 
   if (!(await Facility.isFacilityExist(payload.facility))) {
     throw new AppError(404, "Facility doesnot exist");
   }
+  if (!payload.startTime) {
+    throw new Error("startTime is required");
+}
+if (!payload.endTime) {
+    throw new Error("EndTime is required");
+}
 
-  const startTimeParts = payload.startTime.split(":");
+  const startTimeParts = payload?.startTime?.split(":");
   const startHour = parseInt(startTimeParts[0]);
   const startMin = parseInt(startTimeParts[1]);
 
@@ -38,7 +44,7 @@ const createBookingIntoDB = async (payload: TBooking) => {
     throw new AppError(400, "Invalid Time format");
   }
 
-  const endTimeParts = payload.endTime.split(":");
+  const endTimeParts = payload?.endTime?.split(":");
   const endHour = parseInt(endTimeParts[0]);
   const endMinute = parseInt(endTimeParts[1]);
 

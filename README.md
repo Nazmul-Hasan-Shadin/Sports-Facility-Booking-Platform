@@ -14,7 +14,16 @@ Welcome to the Sports Facility Booking Platform project! This platform aims to p
 # Prerequisites:
 Node.js and npm (or yarn) installed on your system. Verify with node -v and npm -v (or yarn -v) in your terminal. Download them from the official Node.js website if needed: https://nodejs.org/en/download/package-manager.
 
+## Features
+#### User Management: 
+Users can sign up, log in, and manage their profiles. Admin users have additional privileges to manage facilities and view all bookings.
 
+#### Facility Management: 
+Admins can create, update, and delete (soft delete) facilities. All users can view available facilities.
+
+#### Booking System:
+ Users can book facilities by checking available time slots and making bookings. They can also view and cancel their bookings.
+Error Handling and Security: Comprehensive error handling with global error middleware and secure authentication using JWT.
 
 ## Setup Instructions
 

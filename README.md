@@ -10,6 +10,7 @@ Welcome to the Sports Facility Booking Platform project! This platform aims to p
 - **Web Framework**: Express.js
 - **Database**: MongoDB with Mongoose for ODM
 - **Authentication**: JWT (JSON Web Tokens)
+- **validaton**: zod validation 
 # Prerequisites:
 Node.js and npm (or yarn) installed on your system. Verify with node -v and npm -v (or yarn -v) in your terminal. Download them from the official Node.js website if needed: https://nodejs.org/en/download/package-manager.
 

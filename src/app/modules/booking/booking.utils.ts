@@ -31,7 +31,7 @@ export const generateTimeSlotForaDay = (
 
 
 
- export  const hasTimeConflictOfBookingSlotTim=(assignedBookinsTime:TBooking[],newBookingTime)=>{
+ export  const hasTimeConflictOfBookingSlotTim=(assignedBookinsTime:TBooking[],newBookingTime:{startTime:string,endTime:string})=>{
        for (const bookingTime of assignedBookinsTime) {
             const existStartTime= new Date(`2002-11-26T${bookingTime.startTime}`)
             const existEndTime=new Date(`2002-11-26T${bookingTime.endTime}`)

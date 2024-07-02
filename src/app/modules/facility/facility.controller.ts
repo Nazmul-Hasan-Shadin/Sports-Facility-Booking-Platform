@@ -6,7 +6,17 @@ import { FacilityServices } from "./facility.services";
 
 const getFacility= catchAsync(async(req,res)=>{
   const result=await FacilityServices.getAllFacilityFromDB()
-
+   
+  if (result.length===0) {
+    return sendResoponse(res, {
+       success: false,
+   
+       statusCode: 404,
+       message: "No Data Found",
+   
+       data: result,
+     });
+   }
    
   sendResoponse(res, {
     success: true,

@@ -7,6 +7,7 @@ import { Booking } from "./booking.model";
 import {
   calculateAvailableSlots,
   calculatePayableAmount,
+  hasTimeConflictOfBookingSlotTim,
 } from "./booking.utils";
 
 const findBookingAvailablityIntoDB = async (date: Date) => {
@@ -40,11 +41,28 @@ if (!payload.endTime) {
      throw new AppError(404,'user doesnot exist .please login again .this issue arise you are trying other set other user id . Dont nee provide userID its autometic ')
   }
 
-  console.log(findUserId,'iam finded user id');
-  
+
+
  
   const extractUserId= findUserId._id as Types.ObjectId
-   console.log(extractUserId,'ho');
+
+  const assignedBookingTimes= await Booking.find({
+    
+  })
+
+  const newBookingTime={
+   startTime:payload.startTime,
+   endTime:payload.endTime
+  }
+ 
+   if (hasTimeConflictOfBookingSlotTim(assignedBookingTimes,newBookingTime)) {
+     throw new AppError(
+       400,
+       'This Facility is not available at that time ! Choose other time',
+     )
+   }
+    
+
    
   // const startTimeParts = payload?.startTime?.split(":");
   // const startHour = parseInt(startTimeParts[0]);

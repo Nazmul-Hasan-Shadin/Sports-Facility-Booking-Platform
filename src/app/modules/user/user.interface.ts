@@ -13,7 +13,7 @@ export interface TUser extends  Document {
   name: TUserName;
   email: string;
   password: string;
-  phone: number;
+  phone: string;
   role: "admin" | "user";
   passwordChangedAt?:Date;
   isDeleted:Boolean,

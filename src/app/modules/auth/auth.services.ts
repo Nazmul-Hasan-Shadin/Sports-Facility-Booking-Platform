@@ -40,12 +40,17 @@ const loginIntoDB = async (payload: TLogin) => {
   };
 
   const accessToken = jwt.sign(jwtPayload, config.access_token as string, {
+    expiresIn: "2d",
+  });
+
+  const refreshToken=jwt.sign(jwtPayload, config.access_token as string, {
     expiresIn: "7d",
   });
 
   return {
     user,
     accessToken,
+    refreshToken
   };
 };
 

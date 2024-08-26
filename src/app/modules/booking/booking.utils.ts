@@ -29,25 +29,23 @@ export const generateTimeSlotForaDay = (
   return slots;
 };
 
+export const hasTimeConflictOfBookingSlotTim = (
+  assignedBookinsTime: TBooking[],
+  newBookingTime: { startTime: string; endTime: string }
+) => {
+  for (const bookingTime of assignedBookinsTime) {
+    const existStartTime = new Date(`2002-11-26T${bookingTime.startTime}`);
+    const existEndTime = new Date(`2002-11-26T${bookingTime.endTime}`);
+    console.log(bookingTime, "iam booking time of for loop");
 
+    const newTime = new Date(`2002-11-26T${newBookingTime.startTime}`);
+    const newEndTime = new Date(`2002-11-26T${newBookingTime.endTime}`);
 
- export  const hasTimeConflictOfBookingSlotTim=(assignedBookinsTime:TBooking[],newBookingTime:{startTime:string,endTime:string})=>{
-       for (const bookingTime of assignedBookinsTime) {
-            const existStartTime= new Date(`2002-11-26T${bookingTime.startTime}`)
-            const existEndTime=new Date(`2002-11-26T${bookingTime.endTime}`)
-             console.log(bookingTime,'iam booking time of for loop');
-             
-           
-            const newTime=new Date(`2002-11-26T${newBookingTime.startTime}`)
-            const newEndTime=new Date(`2002-11-26T${newBookingTime.endTime}`)
-             
-            if (newTime < existEndTime && newEndTime > existStartTime) {
-                return true
-            }
-
-       }
- }
-
+    if (newTime < existEndTime && newEndTime > existStartTime) {
+      return true;
+    }
+  }
+};
 
 export const calculateAvailableSlots = (bookings: TBooking[]): TTimeSlot[] => {
   const totalSlots = generateTimeSlotForaDay("08:00", "18:00", 120);

@@ -19,6 +19,9 @@ const signUpUser = catchAsync(async (req, res) => {
 
 const LoginIntoDB=catchAsync(async(req,res)=>{
     const result= await AuthServices.loginIntoDB(req.body)
+    res.cookie('user',result.refreshToken ,{
+     httpOnly:false
+    })
     sendResoponse(res, {
         success: true,
         statusCode: 200,

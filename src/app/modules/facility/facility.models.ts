@@ -26,8 +26,8 @@ const facilitySchema = new mongoose.Schema<TFacility, facilityData>({
   },
 });
 
-facilitySchema.statics.isFacilityExist = async function (id) {
-  console.log(id, "lol");
+facilitySchema.statics.isFacilityExist = async function (id:string) {
+
 
   return await Facility.findById({ _id: id });
 };

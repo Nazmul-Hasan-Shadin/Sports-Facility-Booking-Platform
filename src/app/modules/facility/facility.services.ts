@@ -1,6 +1,14 @@
 import { TFacility } from "./facility.interface";
 import { Facility } from "./facility.models";
 
+
+const getSingleFacilityIntoDB = async (id: string) => {
+  const result = await Facility.findById(
+    { _id: id },)
+   
+  return result;
+};
+
 const createFacilityIntoDb = async (payload: TFacility) => {
   const result = await Facility.create(payload);
   return result;
@@ -79,4 +87,5 @@ export const FacilityServices = {
   updateFacilityIntoDB,
   deleteFacilityIntoDB,
   getAllFacilityFromDB,
+  getSingleFacilityIntoDB
 };

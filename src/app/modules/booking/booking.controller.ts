@@ -6,11 +6,12 @@ import { Booking } from "./booking.model";
 import { BookingServices } from "./booking.services";
 
 const checkAvailability = catchAsync(async (req, res) => {
-  const date = req.query.date?new Date(req.query.date as string): new Date(new Date().toISOString().split('T')[0])
 
+  // const date = req.query.date?new Date(req.query.date as string): new Date(new Date().toISOString().split('T')[0])
   
-  
-  const result = await BookingServices.findBookingAvailablityIntoDB(date);
+   console.log(req.query,'iam req.query');
+   
+  const result = await BookingServices.findBookingAvailablityIntoDB(req.query);
 
   sendResoponse(res, {
     success: true,
@@ -22,7 +23,10 @@ const checkAvailability = catchAsync(async (req, res) => {
   });
 });
 
+
 const createBooking = catchAsync(async (req, res) => {
+  console.log(req.user);
+  
   const result = await BookingServices.createBookingIntoDB(req?.user?.email,req.body);
 
   sendResoponse(res, {

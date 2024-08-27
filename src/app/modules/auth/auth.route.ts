@@ -10,6 +10,7 @@ const router= express.Router()
 
 
 router.post('/signup',validateRequest(UserValidation.userValidationSchema),AuthController.signUpUser)
+
 router.post('/login',validateRequest(AuthValidation.loginValidationSchema),AuthController.LoginIntoDB)
 
 

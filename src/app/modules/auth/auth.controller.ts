@@ -19,8 +19,14 @@ const signUpUser = catchAsync(async (req, res) => {
 
 const LoginIntoDB=catchAsync(async(req,res)=>{
     const result= await AuthServices.loginIntoDB(req.body)
-    res.cookie('user',result.refreshToken ,{
-     httpOnly:false
+    console.log('iam finsal result',result);
+    
+   const {refreshToken}=result
+    res.cookie('refreshToken', refreshToken, {
+      secure: false,
+      httpOnly: true,
+      sameSite:'none',
+      maxAge:1000* 60 *60*24*365
     })
     sendResoponse(res, {
         success: true,

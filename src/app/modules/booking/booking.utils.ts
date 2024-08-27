@@ -8,11 +8,14 @@ export const generateTimeSlotForaDay = (
   const slots: TTimeSlot[] = [];
   let current = new Date(`2002-11-26T${startTime}`); //its time Sat Jan 01 2000 20:09:00 GMT+0600 (Bangladesh Standard Time)
   const end = new Date(`2002-11-26T${endTime}`);
-  console.log(current, "current ");
+  // console.log(current, "current ");
 
   while (current < end) {
-    console.log("iam enterd inside while loop 1st step");
+
+        //  getting the exact time in bangladesh at 2002
     const slotStartTime = new Date(current);
+
+      // here i geetting minute time forom 2002 time date then adding duration thta is booking time
     current.setMinutes(current.getMinutes() + slotDuration);
 
     const slotEndTime = new Date(current);
@@ -36,7 +39,7 @@ export const hasTimeConflictOfBookingSlotTim = (
   for (const bookingTime of assignedBookinsTime) {
     const existStartTime = new Date(`2002-11-26T${bookingTime.startTime}`);
     const existEndTime = new Date(`2002-11-26T${bookingTime.endTime}`);
-    console.log(bookingTime, "iam booking time of for loop");
+    // console.log(bookingTime, "iam booking time of for loop");
 
     const newTime = new Date(`2002-11-26T${newBookingTime.startTime}`);
     const newEndTime = new Date(`2002-11-26T${newBookingTime.endTime}`);
@@ -49,19 +52,19 @@ export const hasTimeConflictOfBookingSlotTim = (
 
 export const calculateAvailableSlots = (bookings: TBooking[]): TTimeSlot[] => {
   const totalSlots = generateTimeSlotForaDay("08:00", "18:00", 120);
-  console.log(totalSlots, "totalslots");
+  // console.log(totalSlots, "totalslots");
 
   const availableSlots = totalSlots.filter((slot) => {
     return !bookings.some((booking) => {
-      console.log(booking);
+
 
       const bookingStart = new Date(`2002-11-26T${booking.startTime}`);
-      console.log("bookingStart", bookingStart);
+      // console.log("bookingStart", bookingStart);
+       const bookingEnd = new Date(`2002-11-26T${booking.endTime}`);
 
-      const bookingEnd = new Date(`2002-11-26T${booking.endTime}`);
 
       const slotStart = new Date(`2002-11-26T${slot.startTime}`);
-      console.log("slotStart", slotStart);
+      // console.log("slotStart", slotStart);
       const slotEnd = new Date(`2002-11-26T${slot.endTime}`);
 
       return bookingStart < slotEnd && bookingEnd > slotStart;

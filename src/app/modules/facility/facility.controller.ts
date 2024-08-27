@@ -26,6 +26,27 @@ const getFacility= catchAsync(async(req,res)=>{
   });
 })
 
+const getSingleFacility= catchAsync(async(req,res)=>{
+  const result=await FacilityServices.getSingleFacilityIntoDB(req.params.id)
+   
+  if (result.length===0) {
+    return sendResoponse(res, {
+       success: false,
+   
+       statusCode: 404,
+       message: "No Data Found",
+       data: result,
+     });
+   }
+   
+  sendResoponse(res, {
+    success: true,
+    
+    statusCode: 200,
+    message: "Facility is retrived succesfully",
+    data: result,
+  });
+})
 
 const createFacility= catchAsync(async(req,res)=>{
   const result=await FacilityServices.createFacilityIntoDb(req.body)
@@ -80,5 +101,6 @@ export const FacilityController={
     createFacility,
     updateFacility,
     deleteFacility,
-    getFacility
+    getFacility,
+    getSingleFacility
 }

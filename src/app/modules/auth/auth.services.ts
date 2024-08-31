@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const signUpInToDb = async (payload: TUser) => {
-  
+   payload.role='user'
   const createUser = await User.create(payload)
   const result= await User.findById(createUser._id).select('-createdAt -updatedAt -__v -password');
   return result;

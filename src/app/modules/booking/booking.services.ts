@@ -17,7 +17,8 @@ const findBookingAvailablityIntoDB = async (query: Record<string, unknown>) => {
     : new Date(new Date().toISOString().split("T")[0]);
 
   if (query.facility) {
-    if (!(await Facility.isFacilityExist(query?.facility))) {
+    const facilityId = new Types.ObjectId(query.facility as string);
+    if (!(await Facility.isFacilityExist(facilityId))) {
       throw new AppError(404, "Facility doesnot exist");
     }
   }
@@ -131,6 +132,7 @@ const getAllBookingsForUserSpecificFromDB = async (email: string) => {
 
   const result = await Booking.find({
     user: findExistUserByEmail._id,
+    isBooked:{$ne:'canceled'}
   }).populate("facility");
 
   return result;

@@ -7,6 +7,7 @@ export type TFacility ={
     description:string,
     pricePerHour:number,
     location :string,
+    image:string,
     isDeleted:boolean
 }
 

@@ -6,7 +6,7 @@ import {Server} from 'http'
 let server:Server;
 
 async function main() {
-    console.log('connectiong');
+   
     
     await mongoose.connect(config.db_uri as string,{
       dbName:'sports-booking-platform'

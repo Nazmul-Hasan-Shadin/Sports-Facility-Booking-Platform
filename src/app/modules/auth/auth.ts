@@ -22,7 +22,7 @@ const auth = (...requiredRoles: string[]) => {
     ) as JwtPayload;
 
     const { role, email, iat } = decode;
-    console.log(iat);
+    console.log(role,'iam rolleee');
     const user = await User.isUserExistWithCustomId(email);
 
     if (!user) {
@@ -34,7 +34,7 @@ const auth = (...requiredRoles: string[]) => {
       throw new AppError(404, "This user is Deleted");
     }
 
-    console.log(user);
+  
 
     if (
       user.passwordChangedAt &&

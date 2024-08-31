@@ -5,6 +5,7 @@ const createFacilityValidationSchema = z.object({
     body:z.object({
         name: z.string().nonempty({ message: 'Title is required' }),
         description: z.string().nonempty({ message: 'Description is required' }),
+        image: z.string().nonempty({ message: 'Image is required' }),
         pricePerHour: z.number().positive({ message: 'Price per hour must be a positive number' }),
         location: z.string().nonempty({ message: 'Location is required' }),
         isDeleted: z.boolean().optional().default(false),

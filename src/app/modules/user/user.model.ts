@@ -19,6 +19,7 @@ export const userSchema = new Schema<TUser, UserModel>(
     },
     role: {
       type: String,
+      default:'user'
     },
     phone: {
       type: String,

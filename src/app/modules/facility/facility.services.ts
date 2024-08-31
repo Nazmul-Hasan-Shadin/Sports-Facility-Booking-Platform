@@ -1,3 +1,4 @@
+import { AppError } from "../../errors/AppError";
 import { TFacility } from "./facility.interface";
 import { Facility } from "./facility.models";
 
@@ -5,6 +6,10 @@ import { Facility } from "./facility.models";
 const getSingleFacilityIntoDB = async (id: string) => {
   const result = await Facility.findById(
     { _id: id },)
+
+    if (!result) {
+       throw new AppError(404,'facility not found')
+    }
    
   return result;
 };
@@ -21,16 +26,7 @@ const updateFacilityIntoDB = async (id: string, payload: TFacility) => {
   return result;
 };
 
-const deleteFacilityIntoDB = async (id: string) => {
-  const result = await Facility.findOneAndUpdate(
-    { _id: id },
-    {
-      isDeleted: true,
-    },
-    { new: true }
-  );
-  return result;
-};
+
 
 const getAllFacilityFromDB = async (query: Record<string, unknown>) => {
   // {email:{$regx:searchtekeyword ,$options:'i'}}
@@ -39,13 +35,12 @@ const getAllFacilityFromDB = async (query: Record<string, unknown>) => {
 
 
 
-  const queryObj = { ...query }
+  const queryObj:Record<string, unknown> = { ...query ,isDeleted:false}
   excludes.forEach((el) => delete queryObj[el])
 
   if (query.searchTerm) {
     searchTerms = query.searchTerm;
   }
-  console.log(query, searchTerms);
 
   const searchQuery = Facility.find({
     $or: ["name", "description", "location"].map((field) => ({
@@ -80,6 +75,16 @@ const getAllFacilityFromDB = async (query: Record<string, unknown>) => {
   const skipQuery= await paginateQuery.skip(skip)
 
   return skipQuery;
+};
+const deleteFacilityIntoDB = async (facilityId: string) => {
+  const result = await Facility.findOneAndUpdate(
+    { _id: facilityId },
+    {
+      isDeleted: true,
+    },
+    { new: true }
+  );
+  return result;
 };
 
 export const FacilityServices = {

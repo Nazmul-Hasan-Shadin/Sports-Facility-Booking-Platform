@@ -15,13 +15,13 @@ router.get(
 );
 router.post(
   "/bookings",
-  auth("user"),
+  auth("user",),
   validateRequest(BookingValidationSchema.createBookingValidationSchema),
   BookingsController.createBooking
 );
 router.delete(
   "/bookings/:bookingId",
-  auth("user"),
+  auth("user","admin"),
   BookingsController.cancelaBooking
 );
 

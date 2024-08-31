@@ -29,15 +29,7 @@ const getFacility= catchAsync(async(req,res)=>{
 const getSingleFacility= catchAsync(async(req,res)=>{
   const result=await FacilityServices.getSingleFacilityIntoDB(req.params.id)
    
-  if (result.length===0) {
-    return sendResoponse(res, {
-       success: false,
-   
-       statusCode: 404,
-       message: "No Data Found",
-       data: result,
-     });
-   }
+  
    
   sendResoponse(res, {
     success: true,
@@ -63,6 +55,7 @@ const createFacility= catchAsync(async(req,res)=>{
 
 const updateFacility= catchAsync(async(req,res)=>{
    const id= req.params.id
+   
   const result=await FacilityServices.updateFacilityIntoDB(id,req.body)
 
    
@@ -78,7 +71,9 @@ const updateFacility= catchAsync(async(req,res)=>{
 
 
 const deleteFacility= catchAsync(async(req,res)=>{
-  const id= req.params.id
+  const id= req.params.facilityId 
+
+  
  const result=await FacilityServices.deleteFacilityIntoDB(id)
 
   

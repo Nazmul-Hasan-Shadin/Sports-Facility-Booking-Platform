@@ -66,7 +66,7 @@ const createBooking = catchAsync(async (req, res) => {
 
   const getAllBookingsForuser=  catchAsync(async (req, res) => {
      const {email}=req.user;
-     console.log(email);
+  
      
     const result = await BookingServices.getAllBookingsForUserSpecificFromDB(email);
      

@@ -14,6 +14,10 @@ const facilitySchema = new mongoose.Schema<TFacility, facilityData>({
     type: Number,
     require: [true, "Title is required"],
   },
+  image:{
+     type:String,
+     required:true
+  },
 
   location: {
     type: String,
